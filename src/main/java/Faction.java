@@ -122,6 +122,7 @@ public class Faction {
     		}
     	}
     	FactionsMain.allFactions.remove(FacName.toLowerCase());
+    	if (!FactionsMain.allFactionClaims.isEmpty()) {
 		for (Entry<String, Integer> entry : FactionsMain.allFactionClaims.entrySet()) {
 			String key = entry.getKey();
 			int checkFac = entry.getValue();
@@ -130,6 +131,7 @@ public class Faction {
 			}
 			// ...
 		}
+    	}
     	String uri = "jdbc:sqlite:" + FactionsMain.staticRoot + "/Factions.db";
     	ArrayList <String> queries = new ArrayList<>();
     	queries.add("UPDATE PlayerData set Faction = 1 where Faction = '" + FacID + "'");

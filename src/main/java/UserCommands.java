@@ -1068,6 +1068,10 @@ public class UserCommands {
 							}
 							else {
 								if (facToAlly.getFacID() != faction.getFacID()) {
+									if (faction.isEnemy(facToAlly.getFacID())) {
+										player.sendMessage(Text.of(FactionsMain.defaultMessage, TextColors.GREEN, "You cannot ally with an enemy, make peace first."));
+										return CommandResult.success();
+									}
 						    player.sendMessage(Text.of(FactionsMain.defaultMessage, TextColors.GREEN, "Sending ally request to ", facToAlly.getFacName()));
 							facToAlly.addAllyReq(faction.getFacID());
 								}else {

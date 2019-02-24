@@ -14,10 +14,12 @@ import java.util.UUID;
 import java.util.concurrent.TimeUnit;
 import java.util.Map.Entry;
 
+import javax.annotation.Nullable;
 import javax.sql.DataSource;
 
 import org.spongepowered.api.Sponge;
 import org.spongepowered.api.boss.ServerBossBar;
+import org.spongepowered.api.command.CommandSource;
 import org.spongepowered.api.command.args.GenericArguments;
 import org.spongepowered.api.command.spec.CommandSpec;
 import org.spongepowered.api.config.ConfigDir;
@@ -36,12 +38,18 @@ import org.spongepowered.api.scheduler.Task;
 import org.spongepowered.api.service.sql.SqlService;
 import org.spongepowered.api.service.user.UserStorageService;
 import org.spongepowered.api.text.Text;
+import org.spongepowered.api.text.channel.MessageReceiver;
 import org.spongepowered.api.text.format.TextColors;
 import org.spongepowered.api.world.Location;
 import org.spongepowered.api.world.World;
 
 import com.google.inject.Inject;
 
+import me.rojo8399.placeholderapi.Placeholder;
+import me.rojo8399.placeholderapi.PlaceholderService;
+import me.rojo8399.placeholderapi.Relational;
+import me.rojo8399.placeholderapi.Source;
+import me.rojo8399.placeholderapi.Token;
 import ninja.leaping.configurate.commented.CommentedConfigurationNode;
 import ninja.leaping.configurate.loader.ConfigurationLoader;
 
@@ -59,7 +67,7 @@ public class FactionsMain {
 	public HashMap<String, Long> everyInvite = new HashMap<>();
 	
 	public static Text defaultMessage = Text.of(TextColors.DARK_GREEN, "[Factions] ", TextColors.AQUA);
-
+	PlaceholderService s;
 	ArrayList <Faction> sortedFactions = new ArrayList<>();
 	@Listener
     public void onServerFinishLoad(GameStartingServerEvent event) throws SQLException {
@@ -77,6 +85,7 @@ public class FactionsMain {
     	Sponge.getEventManager().registerListeners(this, new protectEvents.damageEntity());
     	Sponge.getEventManager().registerListeners(this, new protectEvents.boom());
     	//Sponge.getEventManager().registerListeners(this, new protectEvents.fireSpread());
+    	s = Sponge.getServiceManager().provideUnchecked(PlaceholderService.class);
     	staticRoot = root;
 		Task updateFactionsOrder = Task.builder().execute(new sorterTask())
 	            .delayTicks(1)
@@ -198,7 +207,34 @@ public class FactionsMain {
 		for (Entry<String, Faction> fac : allFactions.entrySet()) {
 			fac.getValue().getMembers();
 		}
+        s.loadAll(this, this).forEach(builder -> {
+            if (builder.getId().startsWith("fac-")) {
+                builder.author("Crunch");
+                builder.version("1");
+                try {
+                    builder.buildAndRegister();
+                } catch (Exception ex) {
+                    ex.printStackTrace();
+                }
+            }
+        });
+        s.loadAll(this, this).forEach(builder -> {
+        	   System.out.println(builder.getId());
+           
+       });
     }
+	@Relational
+	@Placeholder(id = "fac-name")
+	public String facName(@Source CommandSource src) throws SQLException {
+		if (src instanceof Player) {
+			FactionPlayer facP = new FactionPlayer().getFacPlayerFromUUID(((Player) src).getUniqueId());
+			if (facP.getFacID() != 1) {
+			return " " + Faction.FactionFromID(facP.getFacID()).getFacName();
+		}
+		}
+		return null;
+	}
+	
 	public static DataSource getDataSource(String jdbcUrl) throws SQLException {
 		if (sql == null) {
 			sql = Sponge.getServiceManager().provide(SqlService.class).get();
