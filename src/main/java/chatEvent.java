@@ -30,7 +30,7 @@ public class chatEvent {
 				if (facP.getFacRank() == 2) {
 					rank = faction.getHelperRank();
 				}
-			
+			//
 		
 				if (facP.getFacRank() == 3) {
 					rank = faction.getOfficerRank();
