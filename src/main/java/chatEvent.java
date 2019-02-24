@@ -25,6 +25,7 @@ public class chatEvent {
 					return;
 				}
 				//test
+				//test
 				String rank = "";
 				if (facP.getFacID() != 1 && facP.inFacChat()) {
 				Faction	faction = Faction.FactionFromID(facP.getFacID());
