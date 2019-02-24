@@ -24,6 +24,7 @@ public class chatEvent {
 					player.sendMessage(Text.of(FactionsMain.defaultMessage,TextColors.GREEN, "You are not a member of any faction."));
 					return;
 				}
+				//test
 				String rank = "";
 				if (facP.getFacID() != 1 && facP.inFacChat()) {
 				Faction	faction = Faction.FactionFromID(facP.getFacID());

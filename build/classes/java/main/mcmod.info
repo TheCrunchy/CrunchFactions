@@ -1,0 +1,16 @@
+[
+    {
+        "modid": "crunchfactions",
+        "name": "Factions by Crunch",
+        "version": "1.0",
+        "description": "Factions plugin, land protection, raiding, etc",
+        "dependencies": [
+            "placeholderapi",
+            "spongeapi@7.1.0-SNAPSHOT"
+        ],
+        "requiredMods": [
+            "placeholderapi",
+            "spongeapi@7.1.0-SNAPSHOT"
+        ]
+    }
+]
