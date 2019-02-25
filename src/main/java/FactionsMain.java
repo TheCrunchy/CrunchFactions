@@ -223,7 +223,6 @@ public class FactionsMain {
            
        });
     }
-	@Relational
 	@Placeholder(id = "fac-name")
 	public String facName(@Source CommandSource src) throws SQLException {
 		if (src instanceof Player) {
@@ -234,7 +233,26 @@ public class FactionsMain {
 		}
 		return null;
 	}
-	
+	@Placeholder(id = "fac-rank")
+	public String facRank(@Source CommandSource src) throws SQLException {
+		if (src instanceof Player) {
+			FactionPlayer facP = new FactionPlayer().getFacPlayerFromUUID(((Player) src).getUniqueId());
+		
+			if (facP.getFacID() != 1) {
+				Faction faction = Faction.FactionFromID(facP.getFacID());
+				if (faction.getFacLeaderUUID().equals(((Player) src).getUniqueId())) {
+					return faction.getLeaderRank();
+				}
+			if (facP.getFacRank() == 2) {
+				return faction.getHelperRank();
+			}
+			if (facP.getFacRank() == 3) {
+				return faction.getLeaderRank();
+			}
+		}
+		}
+		return null;
+	}
 	public static DataSource getDataSource(String jdbcUrl) throws SQLException {
 		if (sql == null) {
 			sql = Sponge.getServiceManager().provide(SqlService.class).get();
