@@ -76,14 +76,7 @@ public class FactionsMain {
     	Sponge.getEventManager().registerListeners(this, new login());
     	Sponge.getEventManager().registerListeners(this, new chatEvent());
        	Sponge.getEventManager().registerListeners(this, new moveEvent());
-       	Sponge.getEventManager().registerListeners(this, new protectEvents.blockBreak());
-    	Sponge.getEventManager().registerListeners(this, new protectEvents.blockPlace());
-    	Sponge.getEventManager().registerListeners(this, new protectEvents.blockModify());
-      	Sponge.getEventManager().registerListeners(this, new protectEvents.blockInteract());
-      	Sponge.getEventManager().registerListeners(this, new protectEvents.liquidPlace());
-      	Sponge.getEventManager().registerListeners(this, new protectEvents.liquidPlace2());
-    	Sponge.getEventManager().registerListeners(this, new protectEvents.damageEntity());
-    	Sponge.getEventManager().registerListeners(this, new protectEvents.boom());
+       	Sponge.getEventManager().registerListeners(this, new protectEvents());
     	//Sponge.getEventManager().registerListeners(this, new protectEvents.fireSpread());
     	s = Sponge.getServiceManager().provideUnchecked(PlaceholderService.class);
     	staticRoot = root;
