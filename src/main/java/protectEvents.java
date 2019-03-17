@@ -349,7 +349,6 @@ public class protectEvents {
 				LocatableBlock locatableBlock = event.getCause().first(LocatableBlock.class).orElse(null);
 				TileEntity tileEntity = event.getCause().first(TileEntity.class).orElse(null);
 				Location<World> sourceLocation = locatableBlock != null ? locatableBlock.getLocation() : tileEntity != null ? tileEntity.getLocation() : null;
-				System.out.println("its a piston");
 				String tempName = sourceLocation.getExtent().getName();
 				Vector3i tempLoc = sourceLocation.getChunkPosition();
 				String tempCombined = tempName + ":" + tempLoc;
