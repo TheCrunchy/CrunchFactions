@@ -122,16 +122,23 @@ public class Faction {
     		}
     	}
     	FactionsMain.allFactions.remove(FacName.toLowerCase());
+    	 List<String> removeThese = new ArrayList<>();
+    	//lazy code right here, couldnt be bothered making an iteration loop
     	if (!FactionsMain.allFactionClaims.isEmpty()) {
 		for (Entry<String, Integer> entry : FactionsMain.allFactionClaims.entrySet()) {
 			String key = entry.getKey();
 			int checkFac = entry.getValue();
 			if (checkFac == this.FacID) {
-				 FactionsMain.allFactionClaims.remove(key);
+				removeThese.add(key);
+
 			}
-			// ...
 		}
+		for (String key : removeThese) {
+			 FactionsMain.allFactionClaims.remove(key);
+		}
+		removeThese.clear();
     	}
+    	
     	String uri = "jdbc:sqlite:" + FactionsMain.staticRoot + "/Factions.db";
     	ArrayList <String> queries = new ArrayList<>();
     	queries.add("UPDATE PlayerData set Faction = 1 where Faction = '" + FacID + "'");

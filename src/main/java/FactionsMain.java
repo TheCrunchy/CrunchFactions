@@ -72,6 +72,7 @@ public class FactionsMain {
 	@Listener
     public void onServerFinishLoad(GameStartingServerEvent event) throws SQLException {
     	Sponge.getCommandManager().register(this, testFac, "factest");
+    	Sponge.getCommandManager().register(this, facAdmin, "facadmin", "fadmin");
      	Sponge.getCommandManager().register(this, facMain, "f", "faction");
     	Sponge.getEventManager().registerListeners(this, new login());
     	Sponge.getEventManager().registerListeners(this, new chatEvent());
@@ -481,6 +482,17 @@ public class FactionsMain {
 			.child(facEnemy, "enemy")
 			.child(facPeace, "neutral")
 			.child(facAlly, "ally")
+			.build();
+	
+    CommandSpec facTestMul = CommandSpec.builder()
+    	    .description(Text.of("Test multiple faction creation."))
+    	    .permission("Factions.admin")
+    	    .executor(new AdminCommands.testMultipleFac())
+    	    .build();
+	CommandSpec facAdmin = CommandSpec.builder()
+			.description(Text.of("Factions main command"))
+			.permission("Factions.admin")
+			.child(facTestMul, "test")   	  
 			.build();
     public class login {
 

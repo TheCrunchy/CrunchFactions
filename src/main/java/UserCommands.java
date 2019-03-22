@@ -746,6 +746,10 @@ public class UserCommands {
 			int max = 10;
 			if (args.getOne("Page Number").isPresent()) {
 				max = (int) args.getOne("Page Number").get() * 10;
+				if (FactionsMain.factionsInOrder.size() == 0) {
+					src.sendMessage(Text.of("There are currently no factions."));
+					return CommandResult.success();
+				}
 				if (FactionsMain.factionsInOrder.size() > max-10) {
 					src.sendMessage(Text.of(FactionsMain.defaultMessage, TextColors.GREEN, "Factions Page ", args.getOne("Page Number").get(), " of ", ((FactionsMain.factionsInOrder.size() / 10) + ((FactionsMain.factionsInOrder.size()%10) > 0 ? 1 : 0))));
 					src.sendMessage(Text.of(TextColors.WHITE, "Neutral ", TextColors.RED, "Enemy ", TextColors.AQUA, "Ally ", TextColors.DARK_AQUA, "Vassal ", TextColors.YELLOW, "Member of"));
@@ -768,6 +772,11 @@ public class UserCommands {
 								// TODO Auto-generated catch block
 								e.printStackTrace();
 							}
+							if (facP.getFacID() == 1) {
+							
+								
+							}
+							else {
 							if (Faction.FactionFromID(facP.getFacID()).getFacID() == (FactionsMain.factionsInOrder.get(max-i).getFacID())) {
 
 								sendMessage.append(Text.of(TextColors.GREEN, max-i + 1, ". ", TextColors.YELLOW, FactionsMain.factionsInOrder.get(max-i).getFacName(), TextColors.YELLOW, " - ", FactionsMain.factionsInOrder.get(max-i).getMembersNoQuery().size(), " Members")).onClick(TextActions.runCommand("/f show " + FactionsMain.factionsInOrder.get(max-i).getFacName())).onHover(TextActions.showText(Text.of("Click me to view faction info for ", FactionsMain.factionsInOrder.get(max-i).getFacName()))).build();
@@ -789,6 +798,7 @@ public class UserCommands {
 								neutral = false;
 							}
 						}
+					}
 						if (neutral) {
 							sendMessage.append(Text.of(TextColors.GREEN, max-i + 1, ". ", TextColors.WHITE, FactionsMain.factionsInOrder.get(max-i).getFacName(), TextColors.WHITE, " - ", FactionsMain.factionsInOrder.get(max-i).getMembersNoQuery().size(), " Members")).onClick(TextActions.runCommand("/f show " + FactionsMain.factionsInOrder.get(max-i).getFacName())).onHover(TextActions.showText(Text.of("Click me to view faction info for ", FactionsMain.factionsInOrder.get(max-i).getFacName()))).build();
 						}
@@ -805,7 +815,6 @@ public class UserCommands {
 					if (FactionsMain.factionsInOrder.size() > max-i) {
 						Text.Builder sendMessage = Text.builder();
 						boolean neutral = true;
-
 						if (src instanceof Player) {
 
 							FactionPlayer facP = new FactionPlayer();
@@ -816,6 +825,11 @@ public class UserCommands {
 								// TODO Auto-generated catch block
 								e.printStackTrace();
 							}
+							if (facP.getFacID() == 1) {
+
+								
+							}
+							else {
 							if (Faction.FactionFromID(facP.getFacID()).getFacID() == (FactionsMain.factionsInOrder.get(max-i).getFacID())) {
 
 								sendMessage.append(Text.of(TextColors.GREEN, max-i + 1, ". ", TextColors.YELLOW, FactionsMain.factionsInOrder.get(max-i).getFacName(), TextColors.YELLOW, " - ", FactionsMain.factionsInOrder.get(max-i).getMembersNoQuery().size(), " Members")).onClick(TextActions.runCommand("/f show " + FactionsMain.factionsInOrder.get(max-i).getFacName())).onHover(TextActions.showText(Text.of("Click me to view faction info for ", FactionsMain.factionsInOrder.get(max-i).getFacName()))).build();
@@ -837,6 +851,7 @@ public class UserCommands {
 								neutral = false;
 							}
 						}
+					}
 						if (neutral) {
 							sendMessage.append(Text.of(TextColors.GREEN, max-i + 1, ". ", TextColors.WHITE, FactionsMain.factionsInOrder.get(max-i).getFacName(), TextColors.WHITE, " - ", FactionsMain.factionsInOrder.get(max-i).getMembersNoQuery().size(), " Members")).onClick(TextActions.runCommand("/f show " + FactionsMain.factionsInOrder.get(max-i).getFacName())).onHover(TextActions.showText(Text.of("Click me to view faction info for ", FactionsMain.factionsInOrder.get(max-i).getFacName()))).build();
 						}
