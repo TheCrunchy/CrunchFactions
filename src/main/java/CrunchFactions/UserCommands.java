@@ -102,7 +102,15 @@ public class UserCommands {
 				for (Vector3i[] row : chunks) {
 					Text.Builder sendMessage = Text.builder();
 					for (Vector3i chunk : row) {
-
+						
+						
+						//
+						//
+						//
+						//make this stuff clickable to show faction information
+						//
+						//
+						//
 						if (FactionsMain.allFactionClaims.containsKey(player.getWorld().getName() + ":" + chunk)) {
 							if (player.getLocation().getChunkPosition().equals(chunk)) {
 								if (FactionsMain.allFactionClaims.get(player.getWorld().getName() + ":" + chunk) != facP.getFacID()){
